@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  dcs-postgres:
+    image: postgres:15.3-alpine
+    container_name: dcs-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: serasa
+      POSTGRES_USER: serasa
+      POSTGRES_DB: serasa_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+networks:
+  default:
+    driver: bridge

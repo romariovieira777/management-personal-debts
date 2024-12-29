@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from backend.src.schema.schema import LoginSchema, ResponseSchema, TokenResponse
-from backend.src.service.service import AuthService
+from backend.src.service.authentication_service import AuthService
 
 router = APIRouter()
 

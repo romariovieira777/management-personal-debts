@@ -1,6 +1,8 @@
 from typing import Optional, TypeVar, Dict
 from pydantic import BaseModel, Field
 
+from backend.src.app import get_password_hash
+
 T = TypeVar('T')
 
 """"
@@ -33,9 +35,24 @@ class TokenVerify(BaseModel):
     token: str
 
 """
-    User
+    Authentication
 """
 
 class LoginSchema(BaseModel):
     email: str
     password: str
+
+
+"""
+    Users
+"""
+
+class RegisterSchema(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+    password: str
+
+    @property
+    def get_password_hash(self):
+        return get_password_hash(self.password)

@@ -57,16 +57,20 @@ async def add_user(username: str, email: str, password: str) -> None:
     session = next(get_db_serasa())
 
     try:
-        password_hash = get_password_hash(password)
+
         existing_user = UserRepository.retrieve_by_first_email(session, UserModel, email)
 
         if existing_user is None:
+
+            password_hash = get_password_hash(password)
+
             new_user = UserModel(
                 first_name=username,
                 last_name=username,
                 email=email,
                 password_hash=password_hash
             )
+
             UserRepository.insert(session, new_user)
 
     except Exception as e:

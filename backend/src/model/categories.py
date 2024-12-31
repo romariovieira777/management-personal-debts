@@ -1,5 +1,4 @@
-import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, ForeignKey, func
 from sqlalchemy.orm import relationship
 from backend.src.config.config import Base
 
@@ -12,13 +11,10 @@ class CategoryModel(Base):
     name = Column(String(50), nullable=False)
     description = Column(Text, nullable=True)
     color = Column(String(7), nullable=False)  # Format HEX: #RRGGBB
-    created_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.now())
-    is_default = Column(Boolean, nullable=False, default=False)
+    created_at = Column(DateTime, nullable=False, server_default=func.now())
 
     user = relationship("UserModel", back_populates="categories")
-
     debts = relationship("DebtsModel", back_populates="category")
-
 
     def __repr__(self):
         return f"<Category {self.name}>"

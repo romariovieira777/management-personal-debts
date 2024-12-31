@@ -11,4 +11,3 @@ def setup_relationships():
     DebtsModel.user = relationship("UserModel", back_populates="debts")
     DebtsModel.category = relationship("CategoryModel", back_populates="debts")
     DebtsModel.payments = relationship("PaymentHistoryModel", back_populates="debt", cascade="all, delete-orphan")
-    DebtsModel.attachments = relationship("AttachmentModel", back_populates="debt", cascade="all, delete-orphan")

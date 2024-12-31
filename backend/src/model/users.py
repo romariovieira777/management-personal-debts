@@ -1,5 +1,4 @@
-import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, func
 from sqlalchemy.orm import relationship
 from backend.src.config.config import Base
 
@@ -12,8 +11,8 @@ class UserModel(Base):
     last_name = Column(String(50), nullable=False)
     email = Column(String(255), unique=True, nullable=False, index=True)
     password_hash = Column(String(60), nullable=False)
-    created_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.now())
-    updated_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.now())
+    created_at = Column(DateTime, nullable=False, server_default=func.now())
+    updated_at = Column(DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
     is_active = Column(Boolean, nullable=False, default=True)
     last_login = Column(DateTime, nullable=True)
 

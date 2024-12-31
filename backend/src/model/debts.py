@@ -1,6 +1,5 @@
-import datetime
 import enum
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, Text, Boolean, Enum
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, Text, Boolean, Enum, func
 from sqlalchemy.orm import relationship
 from backend.src.config.config import Base
 
@@ -21,15 +20,14 @@ class DebtsModel(Base):
     amount = Column(Float(precision=2), nullable=False)
     due_date = Column(DateTime, nullable=False)
     status = Column(Enum(DebtStatus), nullable=False, default=DebtStatus.PENDING)
-    notes = Column(Text, nullable=False)
-    created_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.now())
-    updated_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.now())
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, nullable=False, server_default=func.now())
+    updated_at = Column(DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
     is_deleted = Column(Boolean, nullable=False, default=False)
 
     user = relationship("UserModel", back_populates="debts")
     category = relationship("CategoryModel", back_populates="debts")
     payments = relationship("PaymentHistoryModel", back_populates="debt", cascade="all, delete-orphan")
-    attachments = relationship("AttachmentModel", back_populates="debt", cascade="all, delete-orphan")
 
 
     @property
@@ -41,13 +39,3 @@ class DebtsModel(Base):
     def remaining_amount(self):
         """Calcula o valor restante a ser pago"""
         return self.amount - self.total_paid
-
-    @property
-    def has_attachments(self):
-        """Verifica se a dívida possui anexos"""
-        return len(self.attachments) > 0
-
-    @property
-    def total_attachments_size(self):
-        """Calcula o tamanho total dos anexos em bytes"""
-        return sum(attachment.file_size for attachment in self.attachments)

@@ -24,6 +24,7 @@ class AuthService:
             if UserRepository.verify_password(request.password, user.password_hash):
 
                 token = JWTRepo.generate_token({
+                    "user_id": user.id,
                     "email": user.email,
                     "first_name": user.first_name,
                     "last_name": user.last_name

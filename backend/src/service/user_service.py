@@ -1,7 +1,7 @@
 from backend.src.config.config import get_db_serasa
 from backend.src.model.users import UserModel
 from backend.src.repository.repository import UserRepository
-from backend.src.schema.schema import RegisterSchema
+from backend.src.schema.schema import RegisterSchema, UpdateUserSchema
 
 """
     Users
@@ -38,5 +38,33 @@ class UserService:
         finally:
             session.close()
 
+
+
+    @classmethod
+    def update(cls, request: UpdateUserSchema, user_id: int):
+
+        session = next(get_db_serasa())
+
+        try:
+
+            user = UserRepository.retrieve_by_first_id(session, UserModel, user_id)
+
+            if user is not None:
+
+                user.first_name=request.first_name,
+                user.last_name=request.last_name,
+
+                UserRepository.update(session, user)
+
+                user_dict = user.__dict__
+                user_dict.pop('password_hash', None)
+
+                return user_dict
+
+        except Exception as e:
+            raise f"Failed to update user: {str(e)}"
+
+        finally:
+            session.close()
 
 

@@ -14,6 +14,8 @@ from backend.src.config.config import (
 from backend.src.model.users import UserModel
 from backend.src.repository.repository import UserRepository
 from backend.src.router.router import router
+from backend.src.shared.shared import Shared
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,20 +39,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto",
-    bcrypt__rounds=12
-)
-
 
 def initialize_db() -> None:
     # setup_relationships()
     Base.metadata.create_all(bind=ENGINE_SERASA)
-
-
-def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
 
 
 async def add_user(username: str, email: str, password: str) -> None:
@@ -62,7 +54,7 @@ async def add_user(username: str, email: str, password: str) -> None:
 
         if existing_user is None:
 
-            password_hash = get_password_hash(password)
+            password_hash = Shared.get_password_hash(password)
 
             new_user = UserModel(
                 first_name=username,

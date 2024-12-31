@@ -25,6 +25,10 @@ class BaseRepo:
     def retrieve_by_first_id(db: Session, model: Generic[T], id_model: int):
         return db.query(model).filter(model.id == id_model).first()
 
+    @classmethod
+    def retrieve_by_first_email(cls, db: Session, model: Generic[T], email: str):
+        return db.query(model).filter(model.email == email).first()
+
     @staticmethod
     def insert(db: Session, model: Generic[T]):
         db.add(model)
@@ -106,11 +110,15 @@ class UserRepository(BaseRepo):
 
         return pwd_context.verify(password, password_hash)
 
-    @classmethod
-    def retrieve_by_first_email(cls, db: Session, model: Generic[T], email: str):
-        return db.query(model).filter(model.email == email).first()
 
-class ViniDataRepository(BaseRepo):
-    pass
+class DebtsRepository(BaseRepo):
+
+    def retrieve_by_user_id(db: Session, model: Generic[T], user_id: int):
+        return db.query(model).filter(model.user_id == user_id).all()
+
+class CategoryRepository(BaseRepo):
+
+    def retrieve_by_user_id(db: Session, model: Generic[T], user_id: int):
+        return db.query(model).filter(model.user_id == user_id).all()
 
 

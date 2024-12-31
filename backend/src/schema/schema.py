@@ -1,7 +1,7 @@
+from datetime import datetime
 from typing import Optional, TypeVar, Dict
 from pydantic import BaseModel, Field
 
-from backend.src.app import get_password_hash
 
 T = TypeVar('T')
 
@@ -53,6 +53,34 @@ class RegisterSchema(BaseModel):
     email: str
     password: str
 
-    @property
-    def get_password_hash(self):
-        return get_password_hash(self.password)
+
+class UpdateUserSchema(BaseModel):
+    first_name: str
+    last_name: str
+
+
+"""
+    Debts
+"""
+
+class DebtsSchema(BaseModel):
+    user_id: int
+    category_id: int
+    title: str
+    amount: str
+    due_date: datetime
+    status: str
+    notes: str
+    is_deleted: bool
+
+
+
+"""
+    Category
+"""
+
+class CategorySchema(BaseModel):
+    user_id: int
+    name: str
+    description: str
+    color_rgb: str

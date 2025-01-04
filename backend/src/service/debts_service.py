@@ -1,5 +1,6 @@
 from backend.src.config.config import get_db_serasa
 from backend.src.model import DebtsModel
+from backend.src.model.debts import DebtStatus
 from backend.src.repository.repository import DebtsRepository
 from backend.src.schema.schema import DebtsSchema
 
@@ -39,7 +40,7 @@ class DebtsService:
                 title=request.title,
                 amount=request.amount,
                 due_date=request.due_date,
-                status=request.status,
+                status=DebtStatus[request.status].value,
                 notes=request.notes,
                 is_deleted=request.is_deleted
             )
@@ -70,7 +71,7 @@ class DebtsService:
                 debt.title=request.title,
                 debt.amount=request.amount,
                 debt.due_date=request.due_date,
-                debt.status=request.status,
+                debt.status=DebtStatus[request.status].value,
                 debt.notes=request.notes,
                 debt.is_deleted=request.is_deleted
 
@@ -88,7 +89,7 @@ class DebtsService:
 
 
     @classmethod
-    def disable_debit(cls, request: DebtsSchema, debt_id: int):
+    def disable_debit(cls, debt_id: int, is_deleted: bool):
 
         session = next(get_db_serasa())
 
@@ -98,7 +99,7 @@ class DebtsService:
 
             if debt is not None:
 
-                debt.is_deleted=request.is_deleted
+                debt.is_deleted=is_deleted
 
                 DebtsRepository.update(session, debt)
 

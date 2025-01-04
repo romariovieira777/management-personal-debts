@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 from starlette.requests import Request
 from backend.src.repository.repository import JWTBearer
-from backend.src.schema.schema import ResponseSchema
+from backend.src.schema.schema import ResponseSchema, PaymentHistorySchema
+from backend.src.service.payment_historic_service import PaymentHistoryService
 
 router = APIRouter()
 
@@ -9,10 +10,12 @@ router = APIRouter()
 async def list_user(request: Request, user_id: int):
     try:
 
+        payments_history = PaymentHistoryService.list_user_id(user_id)
+
         return ResponseSchema(code="200",
                               status="Ok",
                               message="Success list debts",
-                              result=None).model_dump(exclude_none=True)
+                              result=payments_history).model_dump(exclude_none=True)
 
     except Exception as e:
         return ResponseSchema(code="500",
@@ -25,10 +28,32 @@ async def list_user(request: Request, user_id: int):
 async def list_debt(request: Request, debt_id: int):
     try:
 
+        payments_history = PaymentHistoryService.list_debt_id(debt_id)
+
         return ResponseSchema(code="200",
                               status="Ok",
                               message="Success list debts",
-                              result=None).model_dump(exclude_none=True)
+                              result=payments_history).model_dump(exclude_none=True)
+
+    except Exception as e:
+        return ResponseSchema(code="500",
+                              status="Internal Server Error",
+                              message=e.__str__()).model_dump(exclude_none=True)
+
+
+
+
+
+@router.post('/register', dependencies=[Depends(JWTBearer())])
+async def register(request: Request, payment_historic: PaymentHistorySchema):
+    try:
+
+        payment_historic = PaymentHistoryService.register(payment_historic)
+
+        return ResponseSchema(code="200",
+                              status="Ok",
+                              message="Success list debts",
+                              result=payment_historic).model_dump(exclude_none=True)
 
     except Exception as e:
         return ResponseSchema(code="500",

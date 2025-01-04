@@ -19,29 +19,3 @@ class UserModel(Base):
     debts = relationship("DebtsModel", back_populates="user", cascade="all, delete-orphan")
     categories = relationship("CategoryModel", back_populates="user", cascade="all, delete-orphan")
     payments = relationship("PaymentHistoryModel", back_populates="user")
-
-    @property
-    def full_name(self):
-        """Retorna o nome completo do usuário"""
-        return f"{self.first_name} {self.last_name}"
-
-    @property
-    def total_debt_amount(self):
-        """Calcula o valor total das dívidas ativas do usuário"""
-        return sum(debt.amount for debt in self.debts if not debt.is_deleted)
-
-    @property
-    def total_paid_amount(self):
-        """Calcula o valor total já pago pelo usuário"""
-        return sum(payment.amount_paid for payment in self.payments)
-
-    def get_debts_by_status(self, status):
-        """Retorna as dívidas do usuário filtradas por status"""
-        return [debt for debt in self.debts if debt.status == status and not debt.is_deleted]
-
-    def get_payments_in_period(self, start_date, end_date):
-        """Retorna os pagamentos realizados em um período específico"""
-        return [
-            payment for payment in self.payments
-            if start_date <= payment.payment_date <= end_date
-        ]

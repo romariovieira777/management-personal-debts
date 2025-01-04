@@ -67,10 +67,10 @@ class DebtsSchema(BaseModel):
     user_id: int
     category_id: int
     title: str
-    amount: str
+    amount: float
     due_date: datetime
     status: str
-    notes: str
+    notes: Optional[str] = None
     is_deleted: bool
 
 
@@ -84,3 +84,18 @@ class CategorySchema(BaseModel):
     name: str
     description: str
     color_rgb: str
+
+
+
+
+"""
+     Payment Historic
+"""
+
+class PaymentHistorySchema(BaseModel):
+    user_id: int
+    debt_id: int
+    amount_paid: float
+    payment_date: datetime
+    payment_method: str
+    notes: str

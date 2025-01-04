@@ -15,15 +15,3 @@ class CategoryModel(Base):
 
     user = relationship("UserModel", back_populates="categories")
     debts = relationship("DebtsModel", back_populates="category")
-
-    def __repr__(self):
-        return f"<Category {self.name}>"
-
-    @property
-    def active_debts(self):
-        return [debt for debt in self.debts if not debt.is_deleted]
-
-    def add_debt(self, debt):
-        if debt.user_id != self.user_id:
-            raise ValueError("A dívida deve pertencer ao mesmo usuário da categoria")
-        self.debts.append(debt)

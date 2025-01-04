@@ -2,6 +2,7 @@ import jwt
 from fastapi import HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from passlib.context import CryptContext
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from starlette.requests import Request
 from datetime import timedelta, datetime
@@ -120,5 +121,22 @@ class CategoryRepository(BaseRepo):
 
     def retrieve_by_user_id(db: Session, model: Generic[T], user_id: int):
         return db.query(model).filter(model.user_id == user_id).all()
+
+
+class PaymentsHistoryRepository(BaseRepo):
+
+    def retrieve_by_user_id(db: Session, model: Generic[T], user_id: int):
+        return db.query(model).filter(model.user_id == user_id).all()
+
+    def retrieve_by_debt_id(db: Session, model: Generic[T], debt_id: int):
+        return db.query(model).filter(model.debt_id == debt_id).all()
+
+    def retrieve_sum_payments_by_debt_id(db: Session, model: Generic[T], debt_id: int):
+        return db.query(func.sum(model.amount_paid)) \
+            .filter(model.debt_id == debt_id) \
+            .scalar() or 0.0
+
+
+
 
 

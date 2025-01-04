@@ -61,10 +61,10 @@ async def update(request: Request, debt_id: int, debts : DebtsSchema):
 
 
 @router.put('/disable/{debt_id}', dependencies=[Depends(JWTBearer())])
-async def disable_debt(request: Request, debt_id: int, debts : DebtsSchema):
+async def disable_debt(request: Request, debt_id: int, is_deleted: bool):
     try:
 
-        debt = DebtsService.disable_debit(debts, debt_id)
+        debt = DebtsService.disable_debit(debt_id, is_deleted)
 
         return ResponseSchema(code="200",
                               status="Ok",

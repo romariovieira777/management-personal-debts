@@ -12,17 +12,9 @@ class PaymentHistoryModel(Base):
     user_id = Column(Integer, ForeignKey('tb_users.id'), nullable=False, index=True)
     amount_paid = Column(Float(precision=2), nullable=False)
     payment_date = Column(DateTime, nullable=False)
-    payment_method = Column(String(50), nullable=True)
+    payment_method = Column(String(50), nullable=True) # Exemplo PIX
     notes = Column(Text, nullable=True)
     created_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.now())
 
     debt = relationship("DebtsModel", back_populates="payments")
     user = relationship("UserModel", back_populates="payments")
-
-    def __repr__(self):
-        return f"<Payment {self.amount_paid} for debt {self.debt_id}>"
-
-    @property
-    def is_valid_amount(self):
-        """Verifica se o valor do pagamento é válido em relação à dívida"""
-        return self.amount_paid <= self.debt.remaining_amount

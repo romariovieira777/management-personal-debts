@@ -1,7 +1,7 @@
-from backend.src.config.config import get_db_serasa
-from backend.src.model.users import UserModel
-from backend.src.repository.repository import UserRepository
-from backend.src.schema.schema import RegisterSchema, UpdateUserSchema
+from src.config.config import get_db_serasa
+from src.model.users import UserModel
+from src.repository.repository import UserRepository
+from src.schema.schema import RegisterSchema, UpdateUserSchema
 
 """
     Users

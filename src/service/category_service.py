@@ -1,7 +1,7 @@
-from backend.src.config.config import get_db_serasa
-from backend.src.model import CategoryModel
-from backend.src.repository.repository import CategoryRepository
-from backend.src.schema.schema import CategorySchema
+from src.config.config import get_db_serasa
+from src.model import CategoryModel
+from src.repository.repository import CategoryRepository
+from src.schema.schema import CategorySchema
 
 """
     Category

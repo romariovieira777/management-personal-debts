@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from starlette.requests import Request
-from backend.src.repository.repository import JWTBearer
-from backend.src.schema.schema import ResponseSchema, PaymentHistorySchema
-from backend.src.service.payment_historic_service import PaymentHistoryService
+from src.repository.repository import JWTBearer
+from src.schema.schema import ResponseSchema, PaymentHistorySchema
+from src.service.payment_historic_service import PaymentHistoryService
 
 router = APIRouter()
 
@@ -39,8 +39,6 @@ async def list_debt(request: Request, debt_id: int):
         return ResponseSchema(code="500",
                               status="Internal Server Error",
                               message=e.__str__()).model_dump(exclude_none=True)
-
-
 
 
 

@@ -1,9 +1,9 @@
 import datetime
 from datetime import timedelta
-from backend.src.config.config import ACCESS_TOKEN_EXPIRE_MINUTES, get_db_serasa
-from backend.src.model.users import UserModel
-from backend.src.repository.repository import JWTRepo, UserRepository
-from backend.src.schema.schema import LoginSchema
+from src.config.config import ACCESS_TOKEN_EXPIRE_MINUTES, get_db_serasa
+from src.model.users import UserModel
+from src.repository.repository import JWTRepo, UserRepository
+from src.schema.schema import LoginSchema
 
 """
     Authentication

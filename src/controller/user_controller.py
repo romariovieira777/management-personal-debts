@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from starlette.requests import Request
-from backend.src.repository.repository import JWTBearer
-from backend.src.schema.schema import ResponseSchema, RegisterSchema, UpdateUserSchema
-from backend.src.service.user_service import UserService
+from src.repository.repository import JWTBearer
+from src.schema.schema import ResponseSchema, RegisterSchema, UpdateUserSchema
+from src.service.user_service import UserService
 
 router = APIRouter()
 

@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from passlib.context import CryptContext
-from backend.src.config.config import (
+from src.config.config import (
     ORIGIN_CORS,
     ENGINE_SERASA,
     Base,
@@ -11,10 +10,10 @@ from backend.src.config.config import (
     EMAIL_API,
     get_db_serasa
 )
-from backend.src.model.users import UserModel
-from backend.src.repository.repository import UserRepository
-from backend.src.router.router import router
-from backend.src.shared.shared import Shared
+from src.model.users import UserModel
+from src.repository.repository import UserRepository
+from src.router.router import router
+from src.shared.shared import Shared
 
 
 @asynccontextmanager

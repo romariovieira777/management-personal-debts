@@ -1,7 +1,7 @@
 import datetime
 from sqlalchemy import Column, Integer, String, Float, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
-from backend.src.config.config import Base
+from src.config.config import Base
 
 
 class PaymentHistoryModel(Base):

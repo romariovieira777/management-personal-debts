@@ -1,9 +1,8 @@
 import enum
-from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, Text, Boolean, Enum, func
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, Text, Boolean, func
 from sqlalchemy.orm import relationship
-from backend.src.config.config import Base
+from src.config.config import Base
 
 
 class DebtStatus(enum.Enum):

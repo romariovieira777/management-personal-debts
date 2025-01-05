@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from starlette.requests import Request
-from backend.src.repository.repository import JWTBearer
-from backend.src.schema.schema import ResponseSchema, DebtsSchema
-from backend.src.service.debts_service import DebtsService
+from src.repository.repository import JWTBearer
+from src.schema.schema import ResponseSchema, DebtsSchema
+from src.service.debts_service import DebtsService
 
 router = APIRouter()
 

@@ -1,7 +1,7 @@
-from backend.src.config.config import get_db_serasa
-from backend.src.model import PaymentHistoryModel, DebtsModel
-from backend.src.repository.repository import PaymentsHistoryRepository, DebtsRepository
-from backend.src.schema.schema import PaymentHistorySchema
+from src.config.config import get_db_serasa
+from src.model import PaymentHistoryModel, DebtsModel
+from src.repository.repository import PaymentsHistoryRepository, DebtsRepository
+from src.schema.schema import PaymentHistorySchema
 
 """
     Payment Historic

@@ -1,6 +1,6 @@
 import uvicorn
 
-from backend.src.config.config import ENVIRON
+from src.config.config import ENVIRON
 
 if __name__ == "__main__":
     if ENVIRON == 'dev':

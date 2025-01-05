@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, func
 from sqlalchemy.orm import relationship
-from backend.src.config.config import Base
+from src.config.config import Base
 
 
 class UserModel(Base):

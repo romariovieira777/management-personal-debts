@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from starlette.requests import Request
 from datetime import timedelta, datetime
 from typing import TypeVar, Generic, List, Optional
-from backend.src.config.config import SECRET_KEY, ALGORITHM, TIMEZONE
+from src.config.config import SECRET_KEY, ALGORITHM, TIMEZONE
 
 T = TypeVar('T')
 

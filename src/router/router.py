@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.src.controller import auth_controller, user_controller, debts_controller, category_controller, \
+from src.controller import auth_controller, user_controller, debts_controller, category_controller, \
     payments_historic_controller
 
 router = APIRouter()

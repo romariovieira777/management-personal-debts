@@ -1,8 +1,8 @@
-from backend.src.config.config import get_db_serasa
-from backend.src.model import DebtsModel
-from backend.src.model.debts import DebtStatus
-from backend.src.repository.repository import DebtsRepository
-from backend.src.schema.schema import DebtsSchema
+from src.config.config import get_db_serasa
+from src.model import DebtsModel
+from src.model.debts import DebtStatus
+from src.repository.repository import DebtsRepository
+from src.schema.schema import DebtsSchema
 
 """
     Debts

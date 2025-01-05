@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, ForeignKey, func
+from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, func
 from sqlalchemy.orm import relationship
-from backend.src.config.config import Base
+from src.config.config import Base
 
 
 class CategoryModel(Base):

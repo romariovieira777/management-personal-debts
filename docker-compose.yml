@@ -1,5 +1,29 @@
 services:
-  dcs-postgres:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "8001:80"
+    volumes:
+      - .:/src
+    environment:
+      - ENVIRON=prd
+      - TIMEZONE=America/Sao_Paulo
+      - USERNAME_API=serasa
+      - PASSWORD_API=serasa
+      - DATABASE=serasa_db
+      - DATABASE_HOST=postgres
+      - DATABASE_USER=serasa
+      - DATABASE_PASSWORD=serasa
+      - EMAIL_API=serasa@serasa.com
+      - PASSWORD_API=serasa
+    command: python main.py
+    depends_on:
+      - postgres
+
+  postgres:
     image: postgres:15.3-alpine
     container_name: dcs-postgres
     restart: always
